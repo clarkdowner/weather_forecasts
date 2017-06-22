@@ -3,7 +3,7 @@ from app import app, db, models
 from datetime import datetime
 import requests
 from key import GOOGLE_API_KEY
-from parsers import parse_forecast_day, parse_forecast_date, parse_percent_precipitation
+from .parsers import parse_forecast_day, parse_forecast_date, parse_percent_precipitation
 from sqlalchemy.orm.exc import MultipleResultsFound
 
 
