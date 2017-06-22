@@ -30,9 +30,15 @@ flask/Scripts/python
 >>> db.session.commit()
 ```
 
-3. Start Flask server on port 5000:
+3. Add your Google Maps API key:
+```
+touch key.py:
+GOOGLE_API_KEY = '{your_key}'
+```
+
+4. Start Flask server on port 5000:
 ```
 flask/Scripts/python run.py
 ```
 
-4. Profit
+5. Profit
