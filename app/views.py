@@ -50,6 +50,11 @@ def get_new_reports():
             forecast_day = parse_forecast_day(forecast['name'])
             is_daytime = forecast['isDaytime']
 
+            if forecast['number'] is 1:
+                is_current = True
+            else:
+                is_current = False
+
             try:
                 report = models.WeatherReport.query.filter(models.WeatherReport.zip == zip). \
                     filter(models.WeatherReport.forecast_day == forecast_day). \
@@ -66,7 +71,8 @@ def get_new_reports():
                                               is_daytime=is_daytime,
                                               short_forecast=forecast['shortForecast'],
                                               detailed_forecast=forecast['detailedForecast'],
-                                              update_time=datetime.utcnow())
+                                              update_time=datetime.utcnow(),
+                                              is_current_forecast=is_current)
                     db.session.add(wr)
                     db.session.commit()
                 else:
@@ -78,6 +84,7 @@ def get_new_reports():
                     report.short_forecast = forecast['shortForecast']
                     report.detailed_forecast = forecast['detailedForecast']
                     report.update_time = datetime.utcnow()
+                    report.is_current_forecast = is_current
                     db.session.commit()
 
             except MultipleResultsFound:

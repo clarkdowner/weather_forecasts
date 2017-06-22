@@ -16,6 +16,7 @@
                     <th style="border: 1px solid black;">is_daytime</th>
                     <th style="border: 1px solid black;">short_forecast</th>
                     <th style="border: 1px solid black;">update_time</th>
+                    <th style="border: 1px solid black;">is_current</th>
                 </tr>
             </thead>
             <tbody>
@@ -31,6 +32,7 @@
                     <td style="border: 1px solid black;">{{ report.is_daytime }}</td>
                     <td style="border: 1px solid black;">{{ report.short_forecast }}</td>
                     <td style="border: 1px solid black;">{{ report.update_time }}</td>
+                    <td style="border: 1px solid black;">{{ report.is_current_forecast }}</td>
                 </tr>
             {% endfor %}
             </tbody>

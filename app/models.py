@@ -32,6 +32,7 @@ class WeatherReport(db.Model):
     short_forecast = db.Column(db.String)
     detailed_forecast = db.Column(db.String)
     update_time = db.Column(db.DateTime)
+    is_current_forecast = db.Column(db.Boolean)
 
     # locations = db.relationship(Location)
 
