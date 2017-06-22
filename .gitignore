@@ -1,0 +1,7 @@
+key.py
+flask/
+weather_app.db
+db_repository/
+tmp/
+.idea/
+__pycache__
