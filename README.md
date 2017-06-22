@@ -1,5 +1,5 @@
 # weather_forecasts
-An experiment in Python. Add zip codes to a database and retrieve weather forecasts for them.
+> An experiment in Python
 
 
 Initial Setup
@@ -17,12 +17,12 @@ flask/Scripts/python ./db_create.py
 Usage
 ---
 
-1. Run Python interpreter:
+## 1. Run Python interpreter:
 ```
 flask/Scripts/python
 ```
 
-2. Add zip to database:
+## 2. Add zip to database:
 ```
 >>> from app import db, models
 >>> l = models.Location(zip='94107', name='San Francisco')
@@ -30,15 +30,15 @@ flask/Scripts/python
 >>> db.session.commit()
 ```
 
-3. Add your Google Maps API key:
+## 3. Add your Google Maps API key:
 ```
-touch key.py:
+touch key.py
+```
 GOOGLE_API_KEY = '{your_key}'
-```
 
-4. Start Flask server on port 5000:
+## 4. Start Flask server on port 5000:
 ```
 flask/Scripts/python run.py
 ```
 
-5. Profit
+## 5. Profit
