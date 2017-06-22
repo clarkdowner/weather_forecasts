@@ -8,22 +8,21 @@ Initial Setup
 ```
 git clone https://github.com/clarkdowner/weather_forecasts.git
 cd weather_forecasts
-maybe?: python -m venv flask
+python -m venv flask
 flask/Scripts/pip install -r requirements.txt
 flask/Scripts/python ./db_create.py
-
 ```
 
 
 Usage
 ---
 
-Run Python interpreter:
+1. Run Python interpreter:
 ```
 flask/Scripts/python
 ```
 
-Add zip to database:
+2. Add zip to database:
 ```
 >>> from app import db, models
 >>> l = models.Location(zip='94107', name='San Francisco')
@@ -31,9 +30,9 @@ Add zip to database:
 >>> db.session.commit()
 ```
 
-Start Flask server on port 5000:
+3. Start Flask server on port 5000:
 ```
 flask/Scripts/python run.py
 ```
 
-Profit
+4. Profit
