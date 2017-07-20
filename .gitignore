@@ -5,3 +5,6 @@ db_repository/
 tmp/
 .idea/
 __pycache__
+
+skipper_imitate/
+update_script.py
