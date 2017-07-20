@@ -48,9 +48,63 @@ class WeatherReport(db.Model):
                self.is_daytime, self.short_forecast, self.update_time)
 
 
+def get_all_locations():
+    """
+    Get latest list of locations
+
+    :return: all location records
+    """
+    locations = db.session.query(Location).all()
+
+    return locations
+
+
+def update_location(location_to_update, latitude, longitude):
+    """
+    Set a latitude and longitude to a location record
+
+    :param location_to_update: location record
+    :param latitude: latitude coordinate
+    :param longitude: longitude coordinate
+    :return: none
+    """
+    location_to_update.latitude = latitude
+    location_to_update.longitude = longitude
+
+    db.session.commit()
+
+
+def get_weather_report(forecast):
+    """
+    Get single weather report matching zip, day, and is_daytime from forecast
+
+    :param forecast: updated weather forecast
+    :return: single weather report
+    """
+    report = db.session.query(WeatherReport).filter(WeatherReport.zip == forecast['zip']). \
+        filter(WeatherReport.forecast_day == forecast['forecast_day']). \
+        filter(WeatherReport.is_daytime == forecast['is_daytime']).one_or_none()
+
+    return report
+
+
+def get_all_weather_reports():
+    """
+    Get latest weather reports
+
+    :return: all weather reports
+    """
+    reports = db.session.query(WeatherReport).all()
+
+    return reports
+
+
 def add_weather_report(forecast):
     """
-    Get latest Clubhouse Info record
+    Add weather report record
+
+    :param forecast: weather forecast
+    :return: none
     """
     weather_report_to_commit = WeatherReport(zip=forecast['zip'],
                                              forecast_day=forecast['forecast_day'],
@@ -71,7 +125,11 @@ def add_weather_report(forecast):
 
 def update_weather_report(report_to_update, forecast):
     """
-    Get latest Clubhouse Visit Info record
+    Update single weather report record with updated forecast
+
+    :param report_to_update: weather report record
+    :param forecast: updated forecast
+    :return: none
     """
     report_to_update.forecast_date = parse_forecast_date(forecast['startTime'])
     report_to_update.temperature = forecast['temperature']
@@ -86,33 +144,14 @@ def update_weather_report(report_to_update, forecast):
     db.session.commit()
 
 
-def update_location(location_to_update, latitude, longitude):
-    location_to_update.latitude = latitude
-    location_to_update.longitude = longitude
-
-    db.session.commit()
-
-
-def get_all_locations():
-    """
-    Get latest Clubhouse Media Info record
-    """
-    locations = db.session.query(Location).all()
-
-    return locations
-
-
-def get_all_weather_reports():
-    """
-
-    :return:
-    """
-    reports = db.session.query(WeatherReport).all()
-
-    return reports
-
-
 def commit_forecast(forecast):
+    """
+    Find matching weather report to forecast and update record. If no matching report exists,
+    create new record.
+
+    :param forecast: updated forecast
+    :return: none
+    """
     try:
         report = get_weather_report(forecast)
 
@@ -125,13 +164,4 @@ def commit_forecast(forecast):
         # TODO: logging
         # log_error('duplicate results for for zip: %r, forecast_day: %r, is_daytime: %r' \
         #           % (forecast['zip'], forecast['forecast_day'], forecast['is_daytime']))
-        print('##')
-
-
-def get_weather_report(forecast):
-    report = db.session.query(WeatherReport).filter(WeatherReport.zip == forecast['zip']). \
-        filter(WeatherReport.forecast_day == forecast['forecast_day']). \
-        filter(WeatherReport.is_daytime == forecast['is_daytime']).one_or_none()
-
-    return report
-
+        print('err')
